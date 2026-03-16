@@ -625,6 +625,9 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
         <div className="flex flex-col items-center justify-center border-b border-slate-300 pb-4 mb-6">
           <KNLogo />
           <p className="text-[12pt] text-slate-700 font-medium text-center mt-2">
+            GST NO: 37AAMCK3560G1ZC
+          </p>
+          <p className="text-[12pt] text-slate-700 font-medium text-center mt-1">
             D.No. 8-199, Mallayapeta, Katheru, Rajahmundry, East Godavari, Andhra Pradesh – 533105
           </p>
         </div>
@@ -708,6 +711,12 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
             <div>: {data.branch}</div>
           </div>
         </div>
+
+        {/* Footer */}
+        <div className="mt-auto pt-8 text-right text-[9pt] text-slate-600">
+          <p>www.knpowergen.com</p>
+          <p>For inquiries please contact: 7093846477 / 7674096908</p>
+        </div>
       </div>
 
       {/* PAGE 2 */}
@@ -755,6 +764,12 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
           <div className="text-center py-12">
             <p className="font-bold uppercase tracking-wider text-[14pt]">AUTHORISED SIGNATORY</p>
           </div>
+        </div>
+
+        {/* Footer */}
+        <div className="pt-8 text-right text-[9pt] text-slate-600">
+          <p>www.knpowergen.com</p>
+          <p>For inquiries please contact: 7093846477 / 7674096908</p>
         </div>
       </div>
 
@@ -824,8 +839,14 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
         </div>
 
         {/* Footer */}
-        <div className="mt-auto pt-8 text-center text-[10pt] text-slate-400 border-t border-slate-100">
-          <p>Delivering Sustainable Energy Solutions</p>
+        <div className="mt-auto pt-8">
+          <div className="text-center text-[10pt] text-slate-400 border-t border-slate-100 pb-4">
+            <p>Delivering Sustainable Energy Solutions</p>
+          </div>
+          <div className="text-right text-[9pt] text-slate-600">
+            <p>www.knpowergen.com</p>
+            <p>For inquiries please contact: 7093846477 / 7674096908</p>
+          </div>
         </div>
       </div>
 
