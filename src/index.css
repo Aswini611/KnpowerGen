@@ -1,1 +1,50 @@
 @import "tailwindcss";
+
+@layer base {
+  @media print {
+    @page {
+      margin: 0;
+      size: auto;
+    }
+    
+    body {
+      background: white !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    /* Hide everything by default on print */
+    #root > div > header,
+    #root > div > main > div:first-child {
+      display: none !important;
+    }
+
+    /* Show only the preview section */
+    #root > div > main > div:last-child {
+      display: block !important;
+      position: static !important;
+      width: 100% !important;
+      height: auto !important;
+      overflow: visible !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      background: white !important;
+    }
+
+    /* Ensure the document itself is correctly sized */
+    #printable-document {
+      box-shadow: none !important;
+      margin: 0 !important;
+      padding: 15mm !important;
+      width: 100% !important;
+      max-width: none !important;
+      min-height: 0 !important;
+      transform: none !important;
+    }
+  }
+}
+
+.document-container {
+  width: 100%;
+  background: white;
+}

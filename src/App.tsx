@@ -2,66 +2,71 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Plus, Trash2, Printer, Download, FileText, 
   User, Zap, Building2, CreditCard, ClipboardList, 
-  Settings, Info, ChevronRight, ChevronDown
+  Settings, Info, ChevronRight, ChevronDown,
+  ExternalLink
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { QuotationData, ItemRow, ScopeItem } from './types';
 
 const INITIAL_DATA: QuotationData = {
   documentType: 'QUOTATION',
-  quoteNo: 'KN/2024/001',
-  date: new Date().toISOString().split('T')[0],
-  customerName: '',
-  customerAddress: '',
+  quoteNo: 'KN/2025-26/054',
+  date: '2026-03-09',
+  customerName: 'B.V.U. KIRAN KUMAR',
+  customerAddress: 'D.No. 8-199, Mallayapeta, Katheru, Rajahmundry, East Godavari, Andhra Pradesh – 533105',
   customerPhone: '',
   customerEmail: '',
   siteLocation: '',
-  systemSize: '3KW On-Grid',
+  systemSize: '3KW ON GRID',
   systemType: 'On-Grid Solar PV System',
   roofType: 'RCC Concrete',
   numPanels: '6',
-  panelWattage: '550W',
-  inverterModel: '3KW Single Phase',
+  panelWattage: '550 WP',
+  inverterModel: '3KV',
   netMetering: 'Yes',
   subsidyApplicable: 'Yes',
   items: [
-    { id: '1', description: 'On-grid roof-top solar system containing panels, inverter, mounting structure, installation', unitRate: 150000, qty: 1, amount: 150000 }
+    { id: '1', description: '3KW ON GRID ROOF -TOP SOLAR SYSTEM CONTAINING 550 WP SOLAR PANELS AND 3KV INCLUDING WITH MOUNTING STRUCTURE INSTALLATION', unitRate: 220000, qty: 1, amount: 220000 }
   ],
-  subtotal: 150000,
+  subtotal: 220000,
   taxRate: 0,
   taxAmount: 0,
-  totalAmount: 150000,
-  govSubsidy: 45000,
-  netPrice: 105000,
-  bankName: 'HDFC BANK',
+  totalAmount: 220000,
+  govSubsidy: 78000,
+  netPrice: 142000,
+  bankName: 'STATE BANK OF INDIA',
   accHolderName: 'KN POWERGEN PVT LTD',
-  accNumber: '50200012345678',
-  ifscCode: 'HDFC0001234',
-  branch: 'Hyderabad Main',
-  structureType: 'Hot Dip Galvanized / Aluminum',
-  windSpeed: '150 km/hr',
-  structureWarranty: '10 Years',
+  accNumber: '44083776625',
+  ifscCode: 'SBIN0004355',
+  branch: 'RAJAHMUNDRY',
+  structureType: 'Flat Roof GI-Regular/Elevated',
+  windSpeed: '160 kmph',
+  structureWarranty: '5 years',
   scopeOfWork: [
-    { description: 'Supply of all components as per BOM', knResponsibility: true, clientResponsibility: false },
-    { description: 'Installation of solar system up to main panel', knResponsibility: true, clientResponsibility: false },
-    { description: 'Staircase/ladder access to roof', knResponsibility: false, clientResponsibility: true },
-    { description: 'Civil works for structures', knResponsibility: true, clientResponsibility: false },
+    { description: 'Supply of An components for Solar System (as per BOM)', knResponsibility: true, clientResponsibility: false },
+    { description: 'Installation of solar system up to the client Main Panel only', knResponsibility: true, clientResponsibility: false },
+    { description: 'Staircase/ ladder access to the roof', knResponsibility: false, clientResponsibility: true },
+    { description: 'Civil Works for structures', knResponsibility: true, clientResponsibility: false },
     { description: 'Earthing on non-concrete flooring', knResponsibility: true, clientResponsibility: false },
-    { description: 'Internet access near inverter location', knResponsibility: false, clientResponsibility: true },
-    { description: 'Testing & commissioning including net metering', knResponsibility: true, clientResponsibility: false },
+    { description: 'Concrete cutting & repair for earthling', knResponsibility: false, clientResponsibility: true },
+    { description: 'Internet access with in band width of 1MBPS at inverter location', knResponsibility: false, clientResponsibility: true },
+    { description: 'Removal or debris from site', knResponsibility: false, clientResponsibility: true },
+    { description: 'Testing & Commissioning Including net metering', knResponsibility: true, clientResponsibility: false },
     { description: 'Net metering & subsidy application process', knResponsibility: true, clientResponsibility: false },
+    { description: 'Regular cleaning of the system', knResponsibility: false, clientResponsibility: true },
+    { description: 'Warranty documents', knResponsibility: true, clientResponsibility: false },
   ],
-  paymentTerms: '60% advance, 40% after installation',
-  timeline: 'Project starts after advance receipt',
-  completionDays: '15-20',
-  warrantyTerms: 'As per manufacturer policy',
-  moduleManufacturer: 'Waaree / Adani / Equivalent',
-  moduleWattage: '550W Mono PERC',
-  moduleWarranty: '25 Years Performance Warranty',
-  inverterManufacturer: 'Solis / Growatt / Sungrow',
-  inverterWarranty: '5-10 Years',
-  signatoryName: 'K. Nageshwar Rao',
-  signatoryDesignation: 'Managing Director'
+  paymentTerms: '90% Advance, 10% After installations',
+  timeline: '45 days',
+  completionDays: '45',
+  warrantyTerms: '25 years on panels, 8 years on inverter',
+  moduleManufacturer: 'WAAREE',
+  moduleWattage: '550 WP',
+  moduleWarranty: 'Model panels 25 year warranty and inverter 8 years Warranty . Warranty certificate issued by WAAREE.',
+  inverterManufacturer: 'WAAREE',
+  inverterWarranty: '8 years',
+  signatoryName: '',
+  signatoryDesignation: 'AUTHORISED SIGNATORY'
 };
 
 export default function App() {
@@ -130,9 +135,26 @@ export default function App() {
   };
 
   const handlePrint = () => {
-    window.focus();
-    window.print();
+    try {
+      window.focus();
+      window.print();
+    } catch (e) {
+      console.error("Print failed:", e);
+      alert("Print failed. Please try opening the app in a new tab using the button in the top right.");
+    }
   };
+
+  const handleDownloadData = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", `quotation_${data.quoteNo.replace(/\//g, '_')}.json`);
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  };
+
+  const isIframe = window.self !== window.top;
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
@@ -164,6 +186,25 @@ export default function App() {
         </div>
 
         <div className="flex items-center gap-3">
+          {isIframe && (
+            <a 
+              href={window.location.href} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all"
+              title="Open in new tab for better printing"
+            >
+              <ExternalLink size={18} />
+              <span className="hidden sm:inline">Open in New Tab</span>
+            </a>
+          )}
+          <button 
+            onClick={handleDownloadData}
+            className="p-2.5 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
+            title="Download Data (JSON)"
+          >
+            <Download size={20} />
+          </button>
           <button 
             onClick={handlePrint}
             className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-lg shadow-blue-200"
@@ -546,215 +587,270 @@ export default function App() {
 
 function KNLogo() {
   return (
-    <svg width="70" height="70" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* Blue KN Background */}
-      <path d="M10 15H35L50 45L65 15H90V85H65V55L50 85L35 55V85H10V15Z" fill="#002E5D" />
-      {/* Yellow Bolt */}
-      <path d="M45 15L32 50H42L35 80L62 42H52L65 15H45Z" fill="#FDB913" />
-    </svg>
+    <div className="flex justify-center mb-8">
+      <svg width="420" height="100" viewBox="0 0 550 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="max-w-full h-auto">
+        {/* Stylized KN Icon */}
+        <g transform="translate(10, 15)">
+          {/* K and N Shapes combined to match the image */}
+          <path 
+            d="M0 0H28V30L50 0H82L55 35L82 70H50L28 42V70H0V0ZM88 0H118L148 40V0H178V70H148L118 30V70H88V0Z" 
+            fill="#002E5D" 
+          />
+          {/* Yellow Lightning Bolt - Sharp and correctly positioned */}
+          <path 
+            d="M50 0L35 42H48L38 78L72 32H58L75 0H50Z" 
+            fill="#FDB913" 
+          />
+        </g>
+        
+        {/* KN POWERGEN Text - Matching font and color */}
+        <text 
+          x="200" 
+          y="68" 
+          fill="#002E5D" 
+          style={{ font: 'bold 46px sans-serif', letterSpacing: '0.2px' }}
+        >
+          KN POWERGEN
+        </text>
+        
+        {/* Decorative Swooshes - Yellow and Blue curves */}
+        <path 
+          d="M40 98 C 180 85, 380 85, 520 98" 
+          stroke="#FDB913" 
+          strokeWidth="4.5" 
+          fill="none" 
+          strokeLinecap="round"
+        />
+        <path 
+          d="M70 108 C 210 95, 410 95, 530 108" 
+          stroke="#0072BC" 
+          strokeWidth="3.5" 
+          fill="none" 
+          strokeLinecap="round"
+        />
+      </svg>
+    </div>
   );
 }
 
 function QuotationTemplate({ data }: { data: QuotationData }) {
   return (
-    <div className="document-container text-[11pt] leading-tight text-slate-900 font-sans bg-white">
-      {/* Page 1 Header */}
-      <div className="flex items-center gap-6 mb-2">
-        <div className="shrink-0">
+    <div className="document-container text-[11pt] leading-tight text-black font-sans bg-white">
+      {/* PAGE 1 */}
+      <div className="min-h-[297mm] p-[15mm] flex flex-col print:page-break-after-always">
+        {/* Header */}
+        <div className="flex flex-col items-center justify-center border-b border-slate-300 pb-4 mb-6">
           <KNLogo />
-        </div>
-        <div className="flex-1">
-          <h1 className="text-4xl font-bold text-[#004A99] tracking-tight">KN POWERGEN PVT LTD</h1>
-          <p className="text-[10pt] text-slate-700 font-medium">
-            Plot No. 123, Industrial Area, Phase-II, Hyderabad, Telangana - 500001
+          <p className="text-[10pt] text-slate-700 font-medium text-center mt-2">
+            D.No. 8-199, Mallayapeta, Katheru, Rajahmundry, East Godavari, Andhra Pradesh – 533105
           </p>
         </div>
-      </div>
-      
-      {/* Decorative Line */}
-      <div className="h-[2px] w-full bg-gradient-to-r from-[#004A99] via-[#FDB913] to-[#004A99] mb-6"></div>
 
-      {/* Meta Details */}
-      <div className="flex justify-between mb-8 text-[11pt] font-medium">
-        <p>QUOT NO: {data.quoteNo}</p>
-        <p>Date: {new Date(data.date).toLocaleDateString('en-GB').replace(/\//g, '-')}</p>
-      </div>
-
-      {/* Title */}
-      <div className="text-center mb-8">
-        <h2 className="text-[14pt] font-bold underline decoration-1 underline-offset-4 uppercase">
-          {data.documentType}
-        </h2>
-      </div>
-
-      {/* Customer Info */}
-      <div className="space-y-3 mb-8 text-[11pt]">
-        <p><span className="font-bold">NAME :</span> {data.customerName || '—'}</p>
-        <p><span className="font-bold">ADDRESS :</span> {data.customerAddress || '—'}</p>
-        <p><span className="font-bold uppercase">SYSTEM SIZE:</span> {data.systemSize} ON GRID</p>
-      </div>
-
-      {/* Item Table */}
-      <table className="w-full border-collapse mb-8 text-[11pt]">
-        <thead>
-          <tr className="uppercase font-bold">
-            <th className="border border-slate-400 p-2 text-left">ITEM & DESCRIPTION</th>
-            <th className="border border-slate-400 p-2 text-left w-32">UNIT RATE</th>
-            <th className="border border-slate-400 p-2 text-left w-24">QTY (KW)</th>
-            <th className="border border-slate-400 p-2 text-left w-32">AMOUNT</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.items.map((item) => (
-            <tr key={item.id}>
-              <td className="border border-slate-400 p-2 align-top min-h-[100px]">
-                <div className="font-medium uppercase">{item.description}</div>
-              </td>
-              <td className="border border-slate-400 p-2 align-top">
-                {item.unitRate.toLocaleString()}/-
-              </td>
-              <td className="border border-slate-400 p-2 align-top text-center">
-                {item.qty}
-              </td>
-              <td className="border border-slate-400 p-2 align-top text-right">
-                {item.amount.toLocaleString()}/-
-              </td>
-            </tr>
-          ))}
-          {/* Empty rows to match screenshot height if needed */}
-          <tr>
-            <td className="border border-slate-400 p-2 h-12"></td>
-            <td className="border border-slate-400 p-2"></td>
-            <td className="border border-slate-400 p-2"></td>
-            <td className="border border-slate-400 p-2"></td>
-          </tr>
-          <tr className="font-bold">
-            <td className="border border-slate-400 p-2">TOTAL (Tax inclusive)</td>
-            <td className="border border-slate-400 p-2"></td>
-            <td className="border border-slate-400 p-2"></td>
-            <td className="border border-slate-400 p-2 text-right">Rs.{data.totalAmount.toLocaleString()}/-</td>
-          </tr>
-        </tbody>
-      </table>
-
-      {/* Bank Details */}
-      <div className="mb-12">
-        <h3 className="font-bold underline mb-4 uppercase">OUT BANK DETAILS:</h3>
-        <div className="grid grid-cols-[180px_1fr] gap-y-2 text-[11pt]">
-          <span className="font-medium">BANK NAME</span> <span>: {data.bankName}</span>
-          <span className="font-medium">COMPANY NAME</span> <span>: KN POWERGEN PVT LTD</span>
-          <span className="font-medium">ACCOUNT NUMBER</span> <span>: {data.accNumber}</span>
-          <span className="font-medium">IFSC CODE</span> <span>: {data.ifscCode}</span>
-          <span className="font-medium">BRANCH</span> <span>: {data.branch}</span>
+        {/* Meta Info */}
+        <div className="flex justify-between mb-8 font-medium">
+          <div>QUOT NO: {data.quoteNo}</div>
+          <div>Date: {new Date(data.date).toLocaleDateString('en-GB').replace(/\//g, '.')}</div>
         </div>
-      </div>
 
-      {/* Page Break for Print */}
-      <div className="print:page-break-after-always h-8"></div>
-
-      {/* Page 2: Mounting Structure & Scope */}
-      <div className="mb-12">
-        <h3 className="font-bold uppercase mb-4">MOUNTING STRUCTURE DETAILS:</h3>
-        <div className="grid grid-cols-[200px_1fr] gap-y-2 text-[11pt]">
-          <span className="font-medium">Type</span> <span>{data.structureType}</span>
-          <span className="font-medium">Wind speed resistance</span> <span>{data.windSpeed}</span>
-          <span className="font-medium">Warranty</span> <span>{data.structureWarranty}</span>
+        {/* Title */}
+        <div className="text-center mb-8">
+          <h2 className="text-[14pt] font-bold underline decoration-1 underline-offset-4 uppercase">QUOTATION</h2>
         </div>
-      </div>
 
-      <div className="mb-12">
-        <h3 className="font-medium mb-4">Scope of work</h3>
-        <table className="w-full text-[11pt]">
+        {/* Customer Details */}
+        <div className="space-y-4 mb-8 uppercase">
+          <div className="flex gap-2">
+            <span className="font-bold w-24">NAME :</span>
+            <span className="flex-1">{data.customerName}</span>
+          </div>
+          <div className="flex gap-2">
+            <span className="font-bold w-24">ADDRESS :</span>
+            <span className="flex-1">{data.customerAddress}</span>
+          </div>
+        </div>
+
+        {/* System Size */}
+        <div className="font-bold mb-4 uppercase">
+          SYSTEM SIZE: {data.systemSize}
+        </div>
+
+        {/* Items Table */}
+        <table className="w-full border-collapse border border-black mb-8">
           <thead>
-            <tr className="font-bold">
-              <th className="text-left py-2">Description</th>
-              <th className="text-center py-2 w-48 uppercase">KN POWERGEN</th>
-              <th className="text-center py-2 w-32">Client</th>
+            <tr className="uppercase font-bold text-[10pt]">
+              <th className="border border-black p-2 text-left w-[60%]">ITEM & DESCRIPTION</th>
+              <th className="border border-black p-2 text-center w-32">UNIT RATE</th>
+              <th className="border border-black p-2 text-center w-24">QTY (KW)</th>
+              <th className="border border-black p-2 text-center w-32">AMOUNT</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-transparent">
-            {data.scopeOfWork.map((item, idx) => (
-              <tr key={idx}>
-                <td className="py-1.5 pr-4">{item.description}</td>
-                <td className="text-center py-1.5">{item.knResponsibility ? '*' : ''}</td>
-                <td className="text-center py-1.5">{item.clientResponsibility ? '*' : ''}</td>
+          <tbody>
+            {data.items.map((item) => (
+              <tr key={item.id}>
+                <td className="border border-black p-2 align-top min-h-[120px]">
+                  <div className="font-bold uppercase mb-1">{item.description}</div>
+                  <div className="text-[9pt]">{data.panelWattage} * {data.numPanels} NO'S</div>
+                </td>
+                <td className="border border-black p-2 align-top text-center">
+                  {item.unitRate.toLocaleString('en-IN')}/-
+                </td>
+                <td className="border border-black p-2 align-top text-center">
+                  {item.qty}
+                </td>
+                <td className="border border-black p-2 align-top text-right">
+                  {item.amount.toLocaleString('en-IN')}/-
+                </td>
               </tr>
             ))}
+            {/* Filler row */}
             <tr>
-              <td className="py-1.5 pr-4">Name Chart in Electricity bill/Phase change/Load enhancement etc.</td>
-              <td className="text-center py-1.5 font-medium">Extra</td>
-              <td className="text-center py-1.5"></td>
+              <td className="border border-black p-2 h-32"></td>
+              <td className="border border-black p-2"></td>
+              <td className="border border-black p-2"></td>
+              <td className="border border-black p-2"></td>
+            </tr>
+            <tr className="font-bold">
+              <td className="border border-black p-2 uppercase" colSpan={3}>TOTAL (Tax inclusive)</td>
+              <td className="border border-black p-2 text-right">Rs.{data.totalAmount.toLocaleString('en-IN')}/-</td>
             </tr>
           </tbody>
         </table>
-      </div>
 
-      <div className="flex justify-end mt-24 mb-12">
-        <div className="text-center">
-          <p className="font-bold uppercase tracking-wider">AUTHORISED SIGNATORY</p>
-        </div>
-      </div>
-
-      {/* Page Break for Print */}
-      <div className="print:page-break-after-always h-8"></div>
-
-      {/* Page 3: Terms & Payment */}
-      <div className="mb-12">
-        <h3 className="font-bold mb-4">Terms and Conditions</h3>
-        <p className="font-medium mb-2">Payment forms:</p>
-        <ul className="list-none space-y-2 mb-6">
-          <li>• {data.paymentTerms.split(',')[0]}</li>
-          <li>• {data.paymentTerms.split(',')[1] || ''}</li>
-        </ul>
-        <div className="space-y-4 text-[11pt]">
-          <div className="flex gap-4">
-            <span className="font-medium w-8">I.</span>
-            <p>In case the system Installation requires components or quantities beyond what is Included In the proposal, the prices may change. The customer will be informed In advance or the same.</p>
-          </div>
-          <div className="flex gap-4">
-            <span className="font-medium w-8">II.</span>
-            <p>Project execution time line will begin after advance receipt or feasibility approval, whichever Is later.</p>
-          </div>
-          <div className="flex gap-4">
-            <span className="font-medium w-8">III.</span>
-            <p>Final commission in got the project depends on supply of net meter by the local DISCOM</p>
-          </div>
-          <div className="flex gap-4">
-            <span className="font-medium w-8">IV.</span>
-            <p>Project Completion Duration: {data.completionDays} days</p>
+        {/* Bank Details */}
+        <div className="mt-auto">
+          <h3 className="font-bold underline mb-4 uppercase">OUT BANK DETAILS:</h3>
+          <div className="grid grid-cols-[180px_1fr] gap-y-2 uppercase text-[10pt]">
+            <div className="font-bold">BANK NAME</div>
+            <div>: {data.bankName}</div>
+            <div className="font-bold">COMPANY NAME</div>
+            <div>: {data.accHolderName}</div>
+            <div className="font-bold">ACCOUNT NUMBER</div>
+            <div>: {data.accNumber}</div>
+            <div className="font-bold">IFSC CODE</div>
+            <div>: {data.ifscCode}</div>
+            <div className="font-bold">BRANCH</div>
+            <div>: {data.branch}</div>
           </div>
         </div>
       </div>
 
-      <div className="mb-12">
-        <h3 className="font-bold mb-4">Customer Payment:</h3>
-        <div className="grid grid-cols-[200px_1fr] gap-y-2 text-[11pt]">
-          <span className="font-medium">• Total Payment</span> <span>: Rs.{data.totalAmount.toLocaleString()}/-</span>
-          <span className="font-medium">• Subsidy from Gov</span> <span>: {data.govSubsidy.toLocaleString()}</span>
-          <span className="font-medium">• Net price of customer</span> <span>: {data.netPrice.toLocaleString()}/.</span>
+      {/* PAGE 2 */}
+      <div className="min-h-[297mm] p-[15mm] flex flex-col print:page-break-after-always">
+        <div className="mb-12">
+          <h3 className="font-bold uppercase mb-6">MOUNTING STRUCTURE DETAILS:</h3>
+          <div className="grid grid-cols-[220px_1fr] gap-y-4 text-[11pt]">
+            <div>Type</div>
+            <div>{data.structureType}</div>
+            <div>Wind speed resistance</div>
+            <div>{data.windSpeed}</div>
+            <div>Warranty</div>
+            <div>{data.structureWarranty}</div>
+          </div>
+        </div>
+
+        <div className="flex-1">
+          <h3 className="font-medium mb-4">Scope of work</h3>
+          <table className="w-full text-[11pt]">
+            <thead>
+              <tr className="font-bold">
+                <th className="text-left py-2 w-[55%]">Description</th>
+                <th className="text-center py-2 uppercase text-[9pt]">KN POWERGEN</th>
+                <th className="text-center py-2 w-24">Client</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-transparent">
+              {data.scopeOfWork.map((item, idx) => (
+                <tr key={idx}>
+                  <td className="py-1.5 pr-4">{item.description}</td>
+                  <td className="text-center py-1.5 font-bold">{item.knResponsibility ? '*' : ''}</td>
+                  <td className="text-center py-1.5 font-bold">{item.clientResponsibility ? '*' : ''}</td>
+                </tr>
+              ))}
+              <tr>
+                <td className="py-1.5 pr-4">Name Chart in Electricity bill/Phase change/Load enhancement etc.</td>
+                <td className="text-center py-1.5 font-bold">Extra</td>
+                <td className="text-center py-1.5"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="flex justify-end mt-24 mb-12">
+          <div className="text-center">
+            <p className="font-bold uppercase tracking-wider">AUTHORISED SIGNATORY</p>
+          </div>
         </div>
       </div>
 
-      <div className="mb-12">
-        <h3 className="font-bold uppercase mb-4">SOLAR PV MODULE DETAILS:</h3>
-        <div className="grid grid-cols-[200px_1fr] gap-y-2 text-[11pt]">
-          <span className="font-medium">• Manufacturer</span> <span>: {data.moduleManufacturer}</span>
-          <span className="font-medium">• Wattage of each module</span> <span>: {data.moduleWattage}</span>
-          <span className="font-medium">• Warranty</span> <span>: {data.moduleWarranty}</span>
+      {/* PAGE 3 */}
+      <div className="min-h-[297mm] p-[15mm] flex flex-col">
+        <div className="mb-12">
+          <h3 className="font-bold mb-4">Terms and Conditions</h3>
+          <p className="font-medium mb-2">Payment forms:</p>
+          <ul className="list-none space-y-1 mb-6">
+            {data.paymentTerms.split(',').map((term, i) => (
+              <li key={i}>• {term.trim()}</li>
+            ))}
+          </ul>
+          
+          <div className="space-y-6 text-[11pt]">
+            <div className="grid grid-cols-[40px_1fr] gap-2">
+              <div className="font-bold">I.</div>
+              <p>In case the system Installation requires components or quantities beyond what is Included In the proposal, the prices may change. The customer will be informed In advance or the same.</p>
+            </div>
+            <div className="grid grid-cols-[40px_1fr] gap-2">
+              <div className="font-bold">II.</div>
+              <p>Project execution time line will begin after advance receipt or feasibility approval, whichever Is later.</p>
+            </div>
+            <div className="grid grid-cols-[40px_1fr] gap-2">
+              <div className="font-bold">III.</div>
+              <p>Final commission in got the project depends on supply of net meter by the local DISCOM</p>
+            </div>
+            <div className="grid grid-cols-[40px_1fr] gap-2">
+              <div className="font-bold">IV.</div>
+              <p>Project Completion Duration: {data.completionDays} days</p>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="mb-12">
-        <h3 className="font-bold uppercase mb-4">SOLARGTI DETAILS:</h3>
-        <div className="grid grid-cols-[200px_1fr] gap-y-2 text-[11pt]">
-          <span className="font-medium">Marketed by</span> <span>: {data.inverterManufacturer}</span>
-          <span className="font-medium">Warranty</span> <span>: {data.inverterWarranty}</span>
+        <div className="mb-12">
+          <h3 className="font-bold mb-4">Customer Payment:</h3>
+          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[11pt]">
+            <div className="font-bold">• Total Payment</div>
+            <div>: Rs.{data.totalAmount.toLocaleString('en-IN')}/-</div>
+            <div className="font-bold">• Subsidy from Gov</div>
+            <div>: {data.govSubsidy.toLocaleString('en-IN')}</div>
+            <div className="font-bold">• Net price of customer</div>
+            <div className="font-bold">: {data.netPrice.toLocaleString('en-IN')}/.</div>
+          </div>
         </div>
-      </div>
 
-      {/* Footer */}
-      <div className="mt-auto pt-12 text-center text-[9pt] text-slate-400 border-t border-slate-100">
-        <p>KN POWERGEN PVT LTD | Delivering Sustainable Energy Solutions</p>
+        <div className="mb-12">
+          <h3 className="font-bold uppercase mb-4">SOLAR PV MODULE DETAILS:</h3>
+          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[11pt]">
+            <div className="font-bold">• Manufacturer</div>
+            <div className="uppercase">: {data.moduleManufacturer}</div>
+            <div className="font-bold">• Wattage of each module</div>
+            <div>: {data.moduleWattage}</div>
+            <div className="font-bold">• Warranty</div>
+            <div className="italic">: {data.moduleWarranty}</div>
+          </div>
+        </div>
+
+        <div className="mb-12">
+          <h3 className="font-bold uppercase mb-4">SOLARGTI DETAILS:</h3>
+          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[11pt]">
+            <div className="font-bold">• Marketed by</div>
+            <div className="uppercase">: {data.inverterManufacturer}</div>
+            <div className="font-bold">• Warranty</div>
+            <div>: {data.inverterWarranty}</div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-auto pt-8 text-center text-[9pt] text-slate-400 border-t border-slate-100">
+          <p>Delivering Sustainable Energy Solutions</p>
+        </div>
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `
@@ -763,9 +859,19 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
           color: #1a1a1a;
         }
         @media print {
+          @page {
+            margin: 0;
+            size: A4;
+          }
+          body {
+            margin: 0;
+            -webkit-print-color-adjust: exact;
+          }
           .document-container {
             width: 210mm;
             min-height: 297mm;
+            margin: 0;
+            padding: 0;
           }
           .page-break-inside-avoid {
             page-break-inside: avoid;
