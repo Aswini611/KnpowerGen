@@ -624,10 +624,10 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
         {/* Header */}
         <div className="flex flex-col items-center justify-center border-b border-slate-300 pb-4 mb-6">
           <KNLogo />
-          <p className="text-[12pt] text-slate-700 font-medium text-center mt-2">
+          <p className="text-[12pt] text-[#040A16] font-semibold text-center mt-2">
             GST NO: 37AAMCK3560G1ZC
           </p>
-          <p className="text-[12pt] text-slate-700 font-medium text-center mt-1">
+          <p className="text-[12pt] text-[#040A16] font-semibold text-center mt-1">
             D.No. 8-199, Mallayapeta, Katheru, Rajahmundry, East Godavari, Andhra Pradesh – 533105
           </p>
         </div>
