@@ -34,11 +34,11 @@ const INITIAL_DATA: QuotationData = {
   totalAmount: 220000,
   govSubsidy: 78000,
   netPrice: 142000,
-  bankName: 'IndusInd Bank',
+  bankName: 'STATE BANK OF INDIA',
   accHolderName: 'KN POWERGEN PVT LTD',
-  accNumber: '258309666377',
-  ifscCode: 'INDB0000359',
-  branch: 'RAJAHMUNDRY DANAVAIPETA',
+  accNumber: '44083776625',
+  ifscCode: 'SBIN0004355',
+  branch: 'RAJAHMUNDRY',
   structureType: 'Flat Roof GI-Regular/Elevated',
   windSpeed: '160 kmph',
   structureWarranty: '5 years',
@@ -160,13 +160,14 @@ export default function App() {
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
       {/* Navigation Header - Hidden on Print */}
       <header className="sticky top-0 z-50 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between print:hidden">
-        <div className="flex flex-col items-center gap-2">
-          <img 
-            src="/Logo.jpeg" 
-            alt="KN PowerGen Logo" 
-            className="h-14 w-auto"
-          />
-          <p className="text-xs text-slate-500 uppercase tracking-wider">Quotation Builder</p>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+            KN
+          </div>
+          <div>
+            <h1 className="font-bold text-lg leading-tight">KN PowerGen</h1>
+            <p className="text-xs text-slate-500 uppercase tracking-wider">Quotation Builder</p>
+          </div>
         </div>
 
         <div className="flex bg-slate-100 p-1 rounded-xl">
@@ -514,36 +515,17 @@ export default function App() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-4">
                 <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">Bank Details</h3>
-                <div className="space-y-3">
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Bank Name</label>
-                    <input type="text" name="bankName" value={data.bankName} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Account Number</label>
-                    <input type="text" name="accNumber" value={data.accNumber} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">IFSC Code</label>
-                    <input type="text" name="ifscCode" value={data.ifscCode} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Branch</label>
-                    <input type="text" name="branch" value={data.branch} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />
-                  </div>
+                <div className="grid grid-cols-1 gap-3">
+                  <input type="text" name="bankName" placeholder="Bank Name" value={data.bankName} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />
+                  <input type="text" name="accNumber" placeholder="Account Number" value={data.accNumber} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />
+                  <input type="text" name="ifscCode" placeholder="IFSC Code" value={data.ifscCode} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />
                 </div>
               </div>
               <div className="space-y-4">
                 <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">Terms Summary</h3>
-                <div className="space-y-3">
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Payment Terms</label>
-                    <input type="text" name="paymentTerms" value={data.paymentTerms} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Completion Days</label>
-                    <input type="text" name="completionDays" value={data.completionDays} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />
-                  </div>
+                <div className="grid grid-cols-1 gap-3">
+                  <input type="text" name="paymentTerms" placeholder="Payment Terms" value={data.paymentTerms} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />
+                  <input type="text" name="completionDays" placeholder="Completion Days" value={data.completionDays} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />
                 </div>
               </div>
             </div>
@@ -570,7 +552,7 @@ export default function App() {
 
         {/* Preview Section */}
         <div className={`lg:col-span-5 sticky top-28 h-[calc(100vh-140px)] overflow-y-auto bg-slate-200 rounded-2xl p-4 shadow-inner print:block print:static print:h-auto print:p-0 print:bg-white ${activeTab === 'edit' ? 'hidden lg:block' : 'block'}`}>
-          <div className="bg-white shadow-2xl mx-auto w-full max-w-[210mm] min-h-[297mm] p-[8mm] origin-top scale-100 lg:scale-[0.85] xl:scale-100 transition-transform print:shadow-none print:m-0 print:p-0 print:scale-100" id="printable-document">
+          <div className="bg-white shadow-2xl mx-auto w-full max-w-[210mm] min-h-[297mm] p-[15mm] origin-top scale-100 lg:scale-[0.85] xl:scale-100 transition-transform print:shadow-none print:m-0 print:p-0 print:scale-100" id="printable-document">
             <QuotationTemplate data={data} />
           </div>
         </div>
@@ -606,28 +588,60 @@ export default function App() {
 function KNLogo() {
   return (
     <div className="flex justify-center mb-8">
-      <img 
-        src="/Logo.jpeg" 
-        alt="KN PowerGen Logo" 
-        className="max-w-full h-auto"
-        style={{ maxWidth: '400px', height: 'auto' }}
-      />
+      <svg width="420" height="100" viewBox="0 0 550 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="max-w-full h-auto">
+        {/* Stylized KN Icon */}
+        <g transform="translate(10, 15)">
+          {/* K and N Shapes combined to match the image */}
+          <path 
+            d="M0 0H28V30L50 0H82L55 35L82 70H50L28 42V70H0V0ZM88 0H118L148 40V0H178V70H148L118 30V70H88V0Z" 
+            fill="#002E5D" 
+          />
+          {/* Yellow Lightning Bolt - Sharp and correctly positioned */}
+          <path 
+            d="M50 0L35 42H48L38 78L72 32H58L75 0H50Z" 
+            fill="#FDB913" 
+          />
+        </g>
+        
+        {/* KN POWERGEN Text - Matching font and color */}
+        <text 
+          x="200" 
+          y="68" 
+          fill="#002E5D" 
+          style={{ font: 'bold 46px sans-serif', letterSpacing: '0.2px' }}
+        >
+          KN POWERGEN
+        </text>
+        
+        {/* Decorative Swooshes - Yellow and Blue curves */}
+        <path 
+          d="M40 98 C 180 85, 380 85, 520 98" 
+          stroke="#FDB913" 
+          strokeWidth="4.5" 
+          fill="none" 
+          strokeLinecap="round"
+        />
+        <path 
+          d="M70 108 C 210 95, 410 95, 530 108" 
+          stroke="#0072BC" 
+          strokeWidth="3.5" 
+          fill="none" 
+          strokeLinecap="round"
+        />
+      </svg>
     </div>
   );
 }
 
 function QuotationTemplate({ data }: { data: QuotationData }) {
   return (
-    <div className="document-container text-[13pt] leading-tight text-black font-sans bg-white">
+    <div className="document-container text-[11pt] leading-tight text-black font-sans bg-white">
       {/* PAGE 1 */}
-      <div className="min-h-[297mm] p-[8mm] flex flex-col print:page-break-after-always">
+      <div className="min-h-[297mm] p-[15mm] flex flex-col print:page-break-after-always">
         {/* Header */}
         <div className="flex flex-col items-center justify-center border-b border-slate-300 pb-4 mb-6">
           <KNLogo />
-          <p className="text-[12pt] text-[#040A16] font-semibold text-center mt-2">
-            GST NO: 37AAMCK3560G1ZC
-          </p>
-          <p className="text-[12pt] text-[#040A16] font-semibold text-center mt-1">
+          <p className="text-[10pt] text-slate-700 font-medium text-center mt-2">
             D.No. 8-199, Mallayapeta, Katheru, Rajahmundry, East Godavari, Andhra Pradesh – 533105
           </p>
         </div>
@@ -640,7 +654,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
 
         {/* Title */}
         <div className="text-center mb-8">
-          <h2 className="text-[16pt] font-bold underline decoration-1 underline-offset-4 uppercase">QUOTATION</h2>
+          <h2 className="text-[14pt] font-bold underline decoration-1 underline-offset-4 uppercase">QUOTATION</h2>
         </div>
 
         {/* Customer Details */}
@@ -663,7 +677,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
         {/* Items Table */}
         <table className="w-full border-collapse border border-black mb-8">
           <thead>
-            <tr className="uppercase font-bold text-[12pt]">
+            <tr className="uppercase font-bold text-[10pt]">
               <th className="border border-black p-2 text-left w-[60%]">ITEM & DESCRIPTION</th>
               <th className="border border-black p-2 text-center w-32">UNIT RATE</th>
               <th className="border border-black p-2 text-center w-24">QTY (KW)</th>
@@ -675,7 +689,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
               <tr key={item.id}>
                 <td className="border border-black p-2 align-top min-h-[120px]">
                   <div className="font-bold uppercase mb-1">{item.description}</div>
-                  <div className="text-[10pt]">{data.panelWattage} * {data.numPanels} NO'S</div>
+                  <div className="text-[9pt]">{data.panelWattage} * {data.numPanels} NO'S</div>
                 </td>
                 <td className="border border-black p-2 align-top text-center">
                   {item.unitRate.toLocaleString('en-IN')}/-
@@ -688,6 +702,13 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
                 </td>
               </tr>
             ))}
+            {/* Filler row */}
+            <tr>
+              <td className="border border-black p-2 h-32"></td>
+              <td className="border border-black p-2"></td>
+              <td className="border border-black p-2"></td>
+              <td className="border border-black p-2"></td>
+            </tr>
             <tr className="font-bold">
               <td className="border border-black p-2 uppercase" colSpan={3}>TOTAL (Tax inclusive)</td>
               <td className="border border-black p-2 text-right">Rs.{data.totalAmount.toLocaleString('en-IN')}/-</td>
@@ -696,9 +717,9 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
         </table>
 
         {/* Bank Details */}
-        <div className="mt-6">
+        <div className="mt-auto">
           <h3 className="font-bold underline mb-4 uppercase">OUT BANK DETAILS:</h3>
-          <div className="grid grid-cols-[180px_1fr] gap-y-2 uppercase text-[12pt]">
+          <div className="grid grid-cols-[180px_1fr] gap-y-2 uppercase text-[10pt]">
             <div className="font-bold">BANK NAME</div>
             <div>: {data.bankName}</div>
             <div className="font-bold">COMPANY NAME</div>
@@ -711,19 +732,13 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
             <div>: {data.branch}</div>
           </div>
         </div>
-
-        {/* Footer */}
-        <div className="mt-auto pt-8 text-right text-[9pt] text-slate-600">
-          <p>www.knpowergen.com</p>
-          <p>For inquiries please contact: 7093846477 / 7674096908</p>
-        </div>
       </div>
 
       {/* PAGE 2 */}
-      <div className="min-h-[297mm] p-[8mm] flex flex-col" style={{ pageBreakAfter: 'always', breakAfter: 'page' }}>
-        <div className="mb-12 mt-6">
+      <div className="min-h-[297mm] p-[15mm] flex flex-col print:page-break-after-always">
+        <div className="mb-12">
           <h3 className="font-bold uppercase mb-6">MOUNTING STRUCTURE DETAILS:</h3>
-          <div className="grid grid-cols-[220px_1fr] gap-y-4 text-[13pt]">
+          <div className="grid grid-cols-[220px_1fr] gap-y-4 text-[11pt]">
             <div>Type</div>
             <div>{data.structureType}</div>
             <div>Wind speed resistance</div>
@@ -735,11 +750,11 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
 
         <div className="flex-1">
           <h3 className="font-medium mb-4">Scope of work</h3>
-          <table className="w-full text-[13pt]">
+          <table className="w-full text-[11pt]">
             <thead>
               <tr className="font-bold">
                 <th className="text-left py-2 w-[55%]">Description</th>
-                <th className="text-center py-2 uppercase text-[10pt]">KN POWERGEN</th>
+                <th className="text-center py-2 uppercase text-[9pt]">KN POWERGEN</th>
                 <th className="text-center py-2 w-24">Client</th>
               </tr>
             </thead>
@@ -760,21 +775,15 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
           </table>
         </div>
 
-        <div className="flex justify-end mt-auto pt-20">
-          <div className="text-center py-12">
-            <p className="font-bold uppercase tracking-wider text-[14pt]">AUTHORISED SIGNATORY</p>
+        <div className="flex justify-end mt-24 mb-12">
+          <div className="text-center">
+            <p className="font-bold uppercase tracking-wider">AUTHORISED SIGNATORY</p>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="pt-8 text-right text-[9pt] text-slate-600">
-          <p>www.knpowergen.com</p>
-          <p>For inquiries please contact: 7093846477 / 7674096908</p>
         </div>
       </div>
 
       {/* PAGE 3 */}
-      <div className="min-h-[297mm] p-[8mm] flex flex-col" style={{ pageBreakBefore: 'always', breakBefore: 'page' }}>
+      <div className="min-h-[297mm] p-[15mm] flex flex-col">
         <div className="mb-12">
           <h3 className="font-bold mb-4">Terms and Conditions</h3>
           <p className="font-medium mb-2">Payment forms:</p>
@@ -784,7 +793,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
             ))}
           </ul>
           
-          <div className="space-y-6 text-[13pt]">
+          <div className="space-y-6 text-[11pt]">
             <div className="grid grid-cols-[40px_1fr] gap-2">
               <div className="font-bold">I.</div>
               <p>In case the system Installation requires components or quantities beyond what is Included In the proposal, the prices may change. The customer will be informed In advance or the same.</p>
@@ -806,7 +815,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
 
         <div className="mb-12">
           <h3 className="font-bold mb-4">Customer Payment:</h3>
-          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[13pt]">
+          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[11pt]">
             <div className="font-bold">• Total Payment</div>
             <div>: Rs.{data.totalAmount.toLocaleString('en-IN')}/-</div>
             <div className="font-bold">• Subsidy from Gov</div>
@@ -818,7 +827,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
 
         <div className="mb-12">
           <h3 className="font-bold uppercase mb-4">SOLAR PV MODULE DETAILS:</h3>
-          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[13pt]">
+          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[11pt]">
             <div className="font-bold">• Manufacturer</div>
             <div className="uppercase">: {data.moduleManufacturer}</div>
             <div className="font-bold">• Wattage of each module</div>
@@ -830,7 +839,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
 
         <div className="mb-12">
           <h3 className="font-bold uppercase mb-4">SOLARGTI DETAILS:</h3>
-          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[13pt]">
+          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[11pt]">
             <div className="font-bold">• Marketed by</div>
             <div className="uppercase">: {data.inverterManufacturer}</div>
             <div className="font-bold">• Warranty</div>
@@ -839,20 +848,14 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
         </div>
 
         {/* Footer */}
-        <div className="mt-auto pt-8">
-          <div className="text-center text-[10pt] text-slate-400 border-t border-slate-100 pb-4">
-            <p>Delivering Sustainable Energy Solutions</p>
-          </div>
-          <div className="text-right text-[9pt] text-slate-600">
-            <p>www.knpowergen.com</p>
-            <p>For inquiries please contact: 7093846477 / 7674096908</p>
-          </div>
+        <div className="mt-auto pt-8 text-center text-[9pt] text-slate-400 border-t border-slate-100">
+          <p>Delivering Sustainable Energy Solutions</p>
         </div>
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `
         .document-container {
-          font-family: 'Times New Roman', Times, serif;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
           color: #1a1a1a;
         }
         @media print {
