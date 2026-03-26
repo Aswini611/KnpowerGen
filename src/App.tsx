@@ -236,10 +236,11 @@ export default function App() {
         {/* Form Section */}
         <div className={`lg:col-span-7 space-y-8 print:hidden ${activeTab === 'preview' ? 'hidden lg:block' : 'block'}`}>
           <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl mb-4 flex items-start gap-3">
-            <Info className="text-blue-600 shrink-0 mt-0.5" size={18} />
-            <p className="text-sm text-blue-800">
-              <strong>Tip:</strong> If the "Print" button doesn't open the dialog, try opening the app in a <strong>New Tab</strong> using the button in the top right of the preview window.
-            </p>
+            <Zap className="text-blue-600 shrink-0 mt-0.5" size={18} />
+            <div>
+              <p className="text-sm text-blue-800 font-semibold">System Type: {data.systemType}</p>
+              <p className="text-sm text-blue-700 mt-1">System Size: {data.systemSize} | Service Type: {data.serviceType}</p>
+            </div>
           </div>
           
           {/* Document Meta */}
