@@ -16,6 +16,7 @@ const INITIAL_DATA: QuotationData = {
   customerAddress: 'D.No. 8-199, Mallayapeta, Katheru, Rajahmundry, East Godavari, Andhra Pradesh – 533105',
   customerPhone: '',
   customerEmail: '',
+  gstNumber: '37AAMCK3560G1ZC',
   siteLocation: '',
   systemSize: '3KW ON GRID',
   systemType: 'On-Grid Solar PV System',
@@ -159,13 +160,10 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
       {/* Navigation Header - Hidden on Print */}
-      <header className="sticky top-0 z-50 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between print:hidden">
+      <header className="sticky top-0 z-50 bg-white border-b border-slate-200 px-6 py-2 flex items-center justify-between print:hidden">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-            KN
-          </div>
+          <img src="/logo.png" alt="KN PowerGen Logo" className="h-16 w-auto" />
           <div>
-            <h1 className="font-bold text-lg leading-tight">KN PowerGen</h1>
             <p className="text-xs text-slate-500 uppercase tracking-wider">Quotation Builder</p>
           </div>
         </div>
@@ -324,6 +322,17 @@ export default function App() {
                   name="siteLocation"
                   placeholder="Installation site address"
                   value={data.siteLocation}
+                  onChange={handleInputChange}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                />
+              </div>
+              <div className="md:col-span-1">
+                <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">GST Number</label>
+                <input 
+                  type="text" 
+                  name="gstNumber"
+                  placeholder="e.g., 37AAMCK3560G1ZC"
+                  value={data.gstNumber}
                   onChange={handleInputChange}
                   className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
                 />
@@ -587,62 +596,25 @@ export default function App() {
 
 function KNLogo() {
   return (
-    <div className="flex justify-center mb-8">
-      <svg width="420" height="100" viewBox="0 0 550 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="max-w-full h-auto">
-        {/* Stylized KN Icon */}
-        <g transform="translate(10, 15)">
-          {/* K and N Shapes combined to match the image */}
-          <path 
-            d="M0 0H28V30L50 0H82L55 35L82 70H50L28 42V70H0V0ZM88 0H118L148 40V0H178V70H148L118 30V70H88V0Z" 
-            fill="#002E5D" 
-          />
-          {/* Yellow Lightning Bolt - Sharp and correctly positioned */}
-          <path 
-            d="M50 0L35 42H48L38 78L72 32H58L75 0H50Z" 
-            fill="#FDB913" 
-          />
-        </g>
-        
-        {/* KN POWERGEN Text - Matching font and color */}
-        <text 
-          x="200" 
-          y="68" 
-          fill="#002E5D" 
-          style={{ font: 'bold 46px sans-serif', letterSpacing: '0.2px' }}
-        >
-          KN POWERGEN
-        </text>
-        
-        {/* Decorative Swooshes - Yellow and Blue curves */}
-        <path 
-          d="M40 98 C 180 85, 380 85, 520 98" 
-          stroke="#FDB913" 
-          strokeWidth="4.5" 
-          fill="none" 
-          strokeLinecap="round"
-        />
-        <path 
-          d="M70 108 C 210 95, 410 95, 530 108" 
-          stroke="#0072BC" 
-          strokeWidth="3.5" 
-          fill="none" 
-          strokeLinecap="round"
-        />
-      </svg>
+    <div className="flex justify-center mb-2">
+      <img src="/logo.png" alt="KN PowerGen Logo" className="max-w-full" style={{maxHeight: '80px', objectFit: 'contain'}} />
     </div>
   );
 }
 
 function QuotationTemplate({ data }: { data: QuotationData }) {
   return (
-    <div className="document-container text-[11pt] leading-tight text-black font-sans bg-white">
+    <div className="document-container text-[12pt] leading-tight text-black font-sans bg-white">
       {/* PAGE 1 */}
-      <div className="min-h-[297mm] p-[15mm] flex flex-col print:page-break-after-always">
+      <div className="min-h-[297mm] pl-[8mm] pr-[12mm] pt-[8mm] pb-[10mm] flex flex-col print:page-break-after-always">
         {/* Header */}
         <div className="flex flex-col items-center justify-center border-b border-slate-300 pb-4 mb-6">
           <KNLogo />
-          <p className="text-[10pt] text-slate-700 font-medium text-center mt-2">
+          <p className="text-[11pt] font-bold text-[#002E5D] text-center mt-2">
             D.No. 8-199, Mallayapeta, Katheru, Rajahmundry, East Godavari, Andhra Pradesh – 533105
+          </p>
+          <p className="text-[10pt] font-bold text-[#002E5D] text-center mt-1">
+            GST NO: {data.gstNumber}
           </p>
         </div>
 
@@ -677,7 +649,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
         {/* Items Table */}
         <table className="w-full border-collapse border border-black mb-8">
           <thead>
-            <tr className="uppercase font-bold text-[10pt]">
+            <tr className="uppercase font-bold text-[11pt]">
               <th className="border border-black p-2 text-left w-[60%]">ITEM & DESCRIPTION</th>
               <th className="border border-black p-2 text-center w-32">UNIT RATE</th>
               <th className="border border-black p-2 text-center w-24">QTY (KW)</th>
@@ -688,8 +660,8 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
             {data.items.map((item) => (
               <tr key={item.id}>
                 <td className="border border-black p-2 align-top min-h-[120px]">
-                  <div className="font-bold uppercase mb-1">{item.description}</div>
-                  <div className="text-[9pt]">{data.panelWattage} * {data.numPanels} NO'S</div>
+                  <div className="uppercase mb-1">{item.description}</div>
+                  <div className="text-[10pt]">{data.panelWattage} * {data.numPanels} NO'S</div>
                 </td>
                 <td className="border border-black p-2 align-top text-center">
                   {item.unitRate.toLocaleString('en-IN')}/-
@@ -702,14 +674,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
                 </td>
               </tr>
             ))}
-            {/* Filler row */}
             <tr>
-              <td className="border border-black p-2 h-32"></td>
-              <td className="border border-black p-2"></td>
-              <td className="border border-black p-2"></td>
-              <td className="border border-black p-2"></td>
-            </tr>
-            <tr className="font-bold">
               <td className="border border-black p-2 uppercase" colSpan={3}>TOTAL (Tax inclusive)</td>
               <td className="border border-black p-2 text-right">Rs.{data.totalAmount.toLocaleString('en-IN')}/-</td>
             </tr>
@@ -717,9 +682,9 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
         </table>
 
         {/* Bank Details */}
-        <div className="mt-auto">
-          <h3 className="font-bold underline mb-4 uppercase">OUT BANK DETAILS:</h3>
-          <div className="grid grid-cols-[180px_1fr] gap-y-2 uppercase text-[10pt]">
+        <div className="mt-2 pt-2">
+          <h3 className="font-bold underline mb-2 uppercase text-[11pt]">OUT BANK DETAILS:</h3>
+          <div className="grid grid-cols-[140px_1fr] gap-y-1 uppercase text-[10pt]">
             <div className="font-bold">BANK NAME</div>
             <div>: {data.bankName}</div>
             <div className="font-bold">COMPANY NAME</div>
@@ -735,10 +700,10 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
       </div>
 
       {/* PAGE 2 */}
-      <div className="min-h-[297mm] p-[15mm] flex flex-col print:page-break-after-always">
+      <div className="min-h-[297mm] pl-[8mm] pr-[12mm] pt-[8mm] pb-[10mm] flex flex-col print:page-break-after-always">
         <div className="mb-12">
           <h3 className="font-bold uppercase mb-6">MOUNTING STRUCTURE DETAILS:</h3>
-          <div className="grid grid-cols-[220px_1fr] gap-y-4 text-[11pt]">
+          <div className="grid grid-cols-[220px_1fr] gap-y-4 text-[12pt]">
             <div>Type</div>
             <div>{data.structureType}</div>
             <div>Wind speed resistance</div>
@@ -750,11 +715,11 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
 
         <div className="flex-1">
           <h3 className="font-medium mb-4">Scope of work</h3>
-          <table className="w-full text-[11pt]">
+          <table className="w-full text-[12pt]">
             <thead>
               <tr className="font-bold">
                 <th className="text-left py-2 w-[55%]">Description</th>
-                <th className="text-center py-2 uppercase text-[9pt]">KN POWERGEN</th>
+                <th className="text-center py-2 uppercase text-[10pt]">KN POWERGEN</th>
                 <th className="text-center py-2 w-24">Client</th>
               </tr>
             </thead>
@@ -783,7 +748,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
       </div>
 
       {/* PAGE 3 */}
-      <div className="min-h-[297mm] p-[15mm] flex flex-col">
+      <div className="min-h-[297mm] pl-[8mm] pr-[12mm] pt-[8mm] pb-[10mm] flex flex-col">
         <div className="mb-12">
           <h3 className="font-bold mb-4">Terms and Conditions</h3>
           <p className="font-medium mb-2">Payment forms:</p>
@@ -793,7 +758,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
             ))}
           </ul>
           
-          <div className="space-y-6 text-[11pt]">
+          <div className="space-y-6 text-[12pt]">
             <div className="grid grid-cols-[40px_1fr] gap-2">
               <div className="font-bold">I.</div>
               <p>In case the system Installation requires components or quantities beyond what is Included In the proposal, the prices may change. The customer will be informed In advance or the same.</p>
@@ -815,7 +780,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
 
         <div className="mb-12">
           <h3 className="font-bold mb-4">Customer Payment:</h3>
-          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[11pt]">
+          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[12pt]">
             <div className="font-bold">• Total Payment</div>
             <div>: Rs.{data.totalAmount.toLocaleString('en-IN')}/-</div>
             <div className="font-bold">• Subsidy from Gov</div>
@@ -827,7 +792,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
 
         <div className="mb-12">
           <h3 className="font-bold uppercase mb-4">SOLAR PV MODULE DETAILS:</h3>
-          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[11pt]">
+          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[12pt]\">
             <div className="font-bold">• Manufacturer</div>
             <div className="uppercase">: {data.moduleManufacturer}</div>
             <div className="font-bold">• Wattage of each module</div>
@@ -839,7 +804,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
 
         <div className="mb-12">
           <h3 className="font-bold uppercase mb-4">SOLARGTI DETAILS:</h3>
-          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[11pt]">
+          <div className="grid grid-cols-[220px_1fr] gap-y-2 text-[12pt]">
             <div className="font-bold">• Marketed by</div>
             <div className="uppercase">: {data.inverterManufacturer}</div>
             <div className="font-bold">• Warranty</div>

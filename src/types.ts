@@ -23,6 +23,7 @@ export interface QuotationData {
   customerPhone: string;
   customerEmail: string;
   siteLocation: string;
+  gstNumber: string;
 
   // System Details
   systemSize: string;
