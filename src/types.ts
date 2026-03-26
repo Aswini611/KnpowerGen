@@ -27,6 +27,7 @@ export interface QuotationData {
 
   // System Details
   systemSize: string;
+  serviceType: string;
   systemType: string;
   roofType: string;
   numPanels: string;

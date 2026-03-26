@@ -18,7 +18,8 @@ const INITIAL_DATA: QuotationData = {
   customerEmail: '',
   gstNumber: '37AAMCK3560G1ZC',
   siteLocation: '',
-  systemSize: '3KW ON GRID',
+  systemSize: '3KW',
+  serviceType: 'Residential Solar',
   systemType: 'On-Grid Solar PV System',
   roofType: 'RCC Concrete',
   numPanels: '6',
@@ -90,6 +91,24 @@ export default function App() {
       netPrice
     }));
   }, [data.items, data.taxRate, data.govSubsidy]);
+
+  // Update item description based on system size
+  useEffect(() => {
+    const getDescriptionBySize = (size: string, panels: string, wattage: string, inverter: string) => {
+      return `${size} ON GRID ROOF -TOP SOLAR SYSTEM CONTAINING ${wattage} SOLAR PANELS AND ${inverter} INCLUDING WITH MOUNTING STRUCTURE INSTALLATION`;
+    };
+
+    const newDescription = getDescriptionBySize(data.systemSize, data.numPanels, data.panelWattage, data.inverterModel);
+    
+    setData(prev => {
+      if (prev.items.length > 0 && prev.items[0].description !== newDescription) {
+        const newItems = [...prev.items];
+        newItems[0] = { ...newItems[0], description: newDescription };
+        return { ...prev, items: newItems };
+      }
+      return prev;
+    });
+  }, [data.systemSize, data.numPanels, data.panelWattage, data.inverterModel]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -349,7 +368,17 @@ export default function App() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">System Size</label>
-                <input type="text" name="systemSize" value={data.systemSize} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                <select name="systemSize" value={data.systemSize} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                  <option value="3KW">3KW</option>
+                  <option value="5KW">5KW</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Service Type</label>
+                <select name="serviceType" value={data.serviceType} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                  <option value="Residential Solar">Residential Solar</option>
+                  <option value="Commercial Solar">Commercial Solar</option>
+                </select>
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">System Type</label>
@@ -639,11 +668,20 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
             <span className="font-bold w-24">ADDRESS :</span>
             <span className="flex-1">{data.customerAddress}</span>
           </div>
+          <div className="flex gap-2">
+            <span className="font-bold w-24">PHONE :</span>
+            <span className="flex-1">{data.customerPhone}</span>
+          </div>
+          <div className="flex gap-2">
+            <span className="font-bold w-24">EMAIL :</span>
+            <span className="flex-1">{data.customerEmail}</span>
+          </div>
         </div>
 
-        {/* System Size */}
-        <div className="font-bold mb-4 uppercase">
-          SYSTEM SIZE: {data.systemSize}
+        {/* System Size and Service Type */}
+        <div className="space-y-2 mb-4 uppercase font-bold">
+          <div>SYSTEM SIZE: {data.systemSize}</div>
+          <div>SERVICE TYPE: {data.serviceType}</div>
         </div>
 
         {/* Items Table */}
@@ -749,7 +787,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
 
       {/* PAGE 3 */}
       <div className="min-h-[297mm] pl-[8mm] pr-[12mm] pt-[8mm] pb-[10mm] flex flex-col">
-        <div className="mb-12">
+        <div className="mb-12 pt-12" style={{pageBreakInside: 'avoid'}}>
           <h3 className="font-bold mb-4">Terms and Conditions</h3>
           <p className="font-medium mb-2">Payment forms:</p>
           <ul className="list-none space-y-1 mb-6">
@@ -814,7 +852,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
 
         {/* Footer */}
         <div className="mt-auto pt-8 text-center text-[9pt] text-slate-400 border-t border-slate-100">
-          <p>Delivering Sustainable Energy Solutions</p>
+          <p>-- This is a system-generated document. --</p>
         </div>
       </div>
 
