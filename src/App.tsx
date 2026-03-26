@@ -18,7 +18,8 @@ const INITIAL_DATA: QuotationData = {
   customerEmail: '',
   gstNumber: '37AAMCK3560G1ZC',
   siteLocation: '',
-  systemSize: '3KW ON GRID',
+  systemSize: '3KW',
+  serviceType: 'Residential Solar',
   systemType: 'On-Grid Solar PV System',
   roofType: 'RCC Concrete',
   numPanels: '6',
@@ -349,7 +350,17 @@ export default function App() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">System Size</label>
-                <input type="text" name="systemSize" value={data.systemSize} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                <select name="systemSize" value={data.systemSize} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                  <option value="3KW">3KW</option>
+                  <option value="5KW">5KW</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Service Type</label>
+                <select name="serviceType" value={data.serviceType} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                  <option value="Residential Solar">Residential Solar</option>
+                  <option value="Commercial Solar">Commercial Solar</option>
+                </select>
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">System Type</label>
@@ -641,9 +652,10 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
           </div>
         </div>
 
-        {/* System Size */}
-        <div className="font-bold mb-4 uppercase">
-          SYSTEM SIZE: {data.systemSize}
+        {/* System Size and Service Type */}
+        <div className="space-y-2 mb-4 uppercase font-bold">
+          <div>SYSTEM SIZE: {data.systemSize}</div>
+          <div>SERVICE TYPE: {data.serviceType}</div>
         </div>
 
         {/* Items Table */}
