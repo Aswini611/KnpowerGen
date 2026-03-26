@@ -92,6 +92,24 @@ export default function App() {
     }));
   }, [data.items, data.taxRate, data.govSubsidy]);
 
+  // Update item description based on system size
+  useEffect(() => {
+    const getDescriptionBySize = (size: string, panels: string, wattage: string, inverter: string) => {
+      return `${size} ON GRID ROOF -TOP SOLAR SYSTEM CONTAINING ${wattage} SOLAR PANELS AND ${inverter} INCLUDING WITH MOUNTING STRUCTURE INSTALLATION`;
+    };
+
+    const newDescription = getDescriptionBySize(data.systemSize, data.numPanels, data.panelWattage, data.inverterModel);
+    
+    setData(prev => {
+      if (prev.items.length > 0 && prev.items[0].description !== newDescription) {
+        const newItems = [...prev.items];
+        newItems[0] = { ...newItems[0], description: newDescription };
+        return { ...prev, items: newItems };
+      }
+      return prev;
+    });
+  }, [data.systemSize, data.numPanels, data.panelWattage, data.inverterModel]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setData(prev => ({ ...prev, [name]: value }));
@@ -650,6 +668,14 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
             <span className="font-bold w-24">ADDRESS :</span>
             <span className="flex-1">{data.customerAddress}</span>
           </div>
+          <div className="flex gap-2">
+            <span className="font-bold w-24">PHONE :</span>
+            <span className="flex-1">{data.customerPhone}</span>
+          </div>
+          <div className="flex gap-2">
+            <span className="font-bold w-24">EMAIL :</span>
+            <span className="flex-1">{data.customerEmail}</span>
+          </div>
         </div>
 
         {/* System Size and Service Type */}
@@ -761,7 +787,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
 
       {/* PAGE 3 */}
       <div className="min-h-[297mm] pl-[8mm] pr-[12mm] pt-[8mm] pb-[10mm] flex flex-col">
-        <div className="mb-12">
+        <div className="mb-12 pt-12" style={{pageBreakInside: 'avoid'}}>
           <h3 className="font-bold mb-4">Terms and Conditions</h3>
           <p className="font-medium mb-2">Payment forms:</p>
           <ul className="list-none space-y-1 mb-6">
@@ -826,7 +852,7 @@ function QuotationTemplate({ data }: { data: QuotationData }) {
 
         {/* Footer */}
         <div className="mt-auto pt-8 text-center text-[9pt] text-slate-400 border-t border-slate-100">
-          <p>Delivering Sustainable Energy Solutions</p>
+          <p>-- This is a system-generated document. --</p>
         </div>
       </div>
 
