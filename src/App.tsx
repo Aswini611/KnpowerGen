@@ -236,10 +236,35 @@ export default function App() {
         {/* Form Section */}
         <div className={`lg:col-span-7 space-y-8 print:hidden ${activeTab === 'preview' ? 'hidden lg:block' : 'block'}`}>
           <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl mb-4 flex items-start gap-3">
-            <Info className="text-blue-600 shrink-0 mt-0.5" size={18} />
-            <p className="text-sm text-blue-800">
-              <strong>Tip:</strong> If the "Print" button doesn't open the dialog, try opening the app in a <strong>New Tab</strong> using the button in the top right of the preview window.
-            </p>
+            <Zap className="text-blue-600 shrink-0 mt-0.5" size={18} />
+            <div>
+              <p className="text-sm text-blue-800 font-semibold">System Type: {data.systemType}</p>
+              <p className="text-sm text-blue-700 mt-1">System Size: {data.systemSize} | Service Type: {data.serviceType}</p>
+            </div>
+          </div>
+
+          {/* Service Type Buttons */}
+          <div className="flex gap-4">
+            <button
+              onClick={() => handleInputChange({ target: { name: 'serviceType', value: 'Residential Solar' } } as any)}
+              className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${
+                data.serviceType === 'Residential Solar'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+              }`}
+            >
+              Residential Solar
+            </button>
+            <button
+              onClick={() => handleInputChange({ target: { name: 'serviceType', value: 'Commercial Solar' } } as any)}
+              className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${
+                data.serviceType === 'Commercial Solar'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+              }`}
+            >
+              Commercial Solar
+            </button>
           </div>
           
           {/* Document Meta */}
@@ -372,17 +397,6 @@ export default function App() {
                   <option value="3KW">3KW</option>
                   <option value="5KW">5KW</option>
                 </select>
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Service Type</label>
-                <select name="serviceType" value={data.serviceType} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
-                  <option value="Residential Solar">Residential Solar</option>
-                  <option value="Commercial Solar">Commercial Solar</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">System Type</label>
-                <input type="text" name="systemType" value={data.systemType} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Roof Type</label>
